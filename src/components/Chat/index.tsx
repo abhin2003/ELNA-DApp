@@ -13,6 +13,7 @@ import { WizardDetails } from "declarations/wizard_details/wizard_details.did";
 
 import Bubble from "./Bubble";
 import NoHistory from "./NoHistory";
+import { enalAi } from "declarations/enalAi";
 
 type Message = {
   user: {
@@ -96,16 +97,22 @@ function Chat() {
     }
 
     try {
-      const response = await axios.post(import.meta.env.VITE_CHAT_API, {
-        input_prompt: messageInput.trim(),
-        biography: wizard?.biography,
-      });
+      const rawResponse = await enalAi.send_http_post_request(
+        wizard!.biography,
+        messageInput.trim()
+      );
+      const response = JSON.parse(rawResponse);
       setIsResponseLoading(false);
+      if (response?.message) {
+        toast.error(response?.message);
+        return;
+      }
+
       setMessages(prev => [
         ...prev,
         {
           user: { name: wizard!.name, isBot: true },
-          message: response.data.body.response,
+          message: JSON.parse(response).body.response,
         },
       ]);
     } catch (e) {
