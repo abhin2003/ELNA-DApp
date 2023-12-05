@@ -10,12 +10,12 @@
       "dependencies": ["backend"]
     },
     "frontend": {
-      "dependencies": ["backend", "wizard_details", "elnaAi"],
+      "dependencies": ["backend", "wizard_details", "elna_ai"],
       "type": "assets",
       "source": ["dist/"]
     },
 
-    "elnaAi": {
+    "elna_ai": {
       "type": "motoko",
       "main": "elnaAi/ChatAi.mo"
     }

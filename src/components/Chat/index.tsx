@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
@@ -13,7 +12,7 @@ import { WizardDetails } from "declarations/wizard_details/wizard_details.did";
 
 import Bubble from "./Bubble";
 import NoHistory from "./NoHistory";
-import { enalAi } from "declarations/enalAi";
+import { elna_ai as elnaAi } from "declarations/elna_ai";
 
 type Message = {
   user: {
@@ -97,7 +96,7 @@ function Chat() {
     }
 
     try {
-      const rawResponse = await enalAi.send_http_post_request(
+      const rawResponse = await elnaAi.send_http_post_request(
         wizard!.biography,
         messageInput.trim()
       );
